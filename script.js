@@ -29,7 +29,7 @@ const CATEGORIES = [
 const CAT_ICON = {};
 PRODUCTS.forEach(p => CAT_ICON[p.categoria] = p.icon);
 
-const WHATSAPP_NUMBER = '5500000000000'; // TODO: trocar pelo número real da loja
+const WHATSAPP_NUMBER = '5577999210121'; // TODO: trocar pelo número real da loja
 
 function money(v) {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
