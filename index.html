@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gil Smartphones — Aparelhos e Acessórios</title>
+<meta name="description" content="Catálogo Gil Smartphones: iPhones, smartphones e mais de 90 acessórios originais com estoque em tempo real. Fale agora pelo WhatsApp.">
+<meta name="theme-color" content="#0b0c10">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23ff7a1a%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22%230b0c10%22 font-family=%22Arial%22 font-weight=%22900%22>G</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <img src="assets/gil-logo.jpg" alt="Gil Smartphones" class="brand-mark">
+      <span class="brand-text">Gil <em>Smartphones</em></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn btn-cta btn-small header-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.36 7.56L3 21l2.02-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+      Falar agora
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-inner">
+      <p class="eyebrow" data-reveal>Catálogo atualizado em tempo real</p>
+      <h1 data-reveal>
+        Seu próximo <span class="text-gradient">smartphone</span><br>
+        e todo o acessório <span class="text-outline">que combina</span>.
+      </h1>
+      <p class="hero-sub" data-reveal>
+        Aparelhos novos e seminovos, fones, carregadores, relógios inteligentes,
+        câmeras e muito mais — tudo com procedência, garantia e um consultor
+        pronto pra te atender no WhatsApp.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a href="#catalogo" class="btn btn-cta">
+          Ver catálogo completo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#contato" class="btn btn-ghost">Falar com um consultor</a>
+      </div>
+      <div class="hero-stats" data-reveal>
+        <div class="stat"><strong data-count="93">0</strong><span>acessórios no catálogo</span></div>
+        <div class="stat"><strong data-count="16">0</strong><span>categorias</span></div>
+        <div class="stat"><strong data-count="100" data-suffix="%">0</strong><span>estoque conferido</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE DE MARCAS -->
+  <section class="brand-strip" aria-label="Marcas trabalhadas">
+    <div class="marquee-track">
+      <span>XIAOMI</span><span>·</span><span>BASEUS</span><span>·</span><span>JBL</span><span>·</span>
+      <span>KAIDI</span><span>·</span><span>TP-LINK</span><span>·</span><span>TOMATE</span><span>·</span>
+      <span>ESSAGER</span><span>·</span><span>MICROWEAR</span><span>·</span><span>GOLD PRO</span><span>·</span>
+      <span>XIAOMI</span><span>·</span><span>BASEUS</span><span>·</span><span>JBL</span><span>·</span>
+      <span>KAIDI</span><span>·</span><span>TP-LINK</span><span>·</span><span>TOMATE</span><span>·</span>
+      <span>ESSAGER</span><span>·</span><span>MICROWEAR</span><span>·</span><span>GOLD PRO</span><span>·</span>
+    </div>
+  </section>
+
+  <!-- OFERTAS -->
+  <section class="section" id="ofertas">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Preço fechado</p>
+      <h2>Ofertas com <span class="text-gradient">preço na mão</span></h2>
+      <p class="section-sub">Estes já têm valor confirmado — o resto do catálogo é combinado direto com o consultor.</p>
+    </div>
+    <div class="offers-track-wrap" data-reveal>
+      <div class="offers-track" id="offersTrack"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section class="section section-alt" id="categorias">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Explore por tipo</p>
+      <h2>Uma categoria pra cada <span class="text-gradient">necessidade</span></h2>
+    </div>
+    <div class="cat-grid" id="catGrid" data-reveal></div>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <section class="section" id="catalogo">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Catálogo completo</p>
+      <h2>Todos os <span class="text-gradient">acessórios</span></h2>
+      <p class="section-sub">93 itens. Filtre por categoria ou busque pelo nome, marca ou modelo.</p>
+    </div>
+
+    <div class="catalog-controls" data-reveal>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="searchInput" placeholder="Buscar fone, carregador, relógio...">
+      </div>
+      <div class="filter-chips" id="filterChips">
+        <button class="chip is-active" data-cat="Todos">Todos <span>93</span></button>
+      </div>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+    <p class="empty-state" id="emptyState" hidden>Nenhum acessório encontrado com esse filtro.</p>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section cta-section" id="contato">
+    <div class="cta-card" data-reveal>
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="cta-content">
+        <p class="eyebrow">Fale com a loja</p>
+        <h2>Não achou o que precisa?<br>A gente <span class="text-gradient">confirma pra você</span>.</h2>
+        <p class="section-sub">Estoque, cor, garantia e melhor preço — tudo confirmado na hora, direto com um consultor de verdade.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/5500000000000?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20os%20acess%C3%B3rios." target="_blank" rel="noopener" class="btn btn-cta btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.36 7.56L3 21l2.02-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+            Chamar no WhatsApp
+          </a>
+          <a href="https://www.instagram.com/gil_smartphones/" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">@gil_smartphones</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/gil-logo.jpg" alt="Gil Smartphones" class="brand-mark">
+      <span class="brand-text">Gil <em>Smartphones</em></span>
+    </div>
+    <p>Aparelhos e acessórios com procedência. Estoque sujeito a confirmação.</p>
+    <p>Proprietário: Gilmar Almeida Lima</p>
+    <a href="https://www.instagram.com/gil_smartphones/" target="_blank" rel="noopener" class="footer-instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      @gil_smartphones
+    </a>
+    <p class="footer-copy">© <span id="year"></span> Gil Smartphones. Catálogo demonstrativo.</p>
+  </div>
+</footer>
+
+<a class="whatsapp-fab" href="https://wa.me/5500000000000?text=Oi!%20Vim%20pelo%20site%20da%20Gil%20Smartphones." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.36 7.56L3 21l2.02-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+</a>
+
+<div class="product-modal" id="productModal" hidden>
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-panel">
+    <button class="modal-close" id="modalClose" aria-label="Fechar">&times;</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="products.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
