@@ -34,6 +34,13 @@ const WHATSAPP_NUMBER = '5500000000000'; // TODO: trocar pelo número real da lo
 function money(v) {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
 }
+function money2(v) {
+  return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
+}
+function parseBRL(str) {
+  const n = parseFloat(String(str).replace(/\./g, '').replace(',', '.'));
+  return isNaN(n) ? 0 : n;
+}
 function priceLabel(p) {
   if (!p.precoMin) return 'Consultar no WhatsApp';
   if (p.precoMax && p.precoMax !== p.precoMin) return `${money(p.precoMin)} – ${money(p.precoMax)}`;
@@ -137,10 +144,78 @@ function renderGrid() {
 }
 renderGrid();
 
+// ===== Simulador de entrada + parcelamento =====
+const JUROS_AO_MES = 0.0299; // 2,99% a.m. — simulação, sem valor contratual
+const MAX_PARCELAS = 12;
+
+function installmentPlan(saldo) {
+  const list = [];
+  for (let n = 1; n <= MAX_PARCELAS; n++) {
+    let parcela, total;
+    if (n === 1) {
+      parcela = saldo;
+      total = saldo;
+    } else {
+      const i = JUROS_AO_MES;
+      parcela = (saldo * i) / (1 - Math.pow(1 + i, -n));
+      total = parcela * n;
+    }
+    list.push({ n, parcela, total });
+  }
+  return list;
+}
+
+function renderParcelas(saldo) {
+  const parcelasEl = document.getElementById('simParcelas');
+  if (!parcelasEl) return;
+  if (saldo <= 0) {
+    parcelasEl.innerHTML = `<p class="sim-paid">A entrada já cobre o valor total. Nada a parcelar!</p>`;
+    return;
+  }
+  const plan = installmentPlan(saldo);
+  parcelasEl.innerHTML = plan.map(x => `
+    <div class="sim-parcela-card">
+      <strong>${x.n}x de ${money2(x.parcela)}</strong>
+      <span>Total ${money2(x.total)}</span>
+    </div>
+  `).join('');
+}
+
+function updateSimulator(precoBase) {
+  const entradaInput = document.getElementById('simEntrada');
+  const saldoEl = document.getElementById('simSaldo');
+  if (!entradaInput || !saldoEl) return;
+  const entrada = Math.min(parseBRL(entradaInput.value), precoBase);
+  const saldo = Math.max(0, precoBase - entrada);
+  saldoEl.textContent = money2(saldo);
+  renderParcelas(saldo);
+}
+
 // ===== Modal =====
 const modal = document.getElementById('productModal');
 const modalBody = document.getElementById('modalBody');
 function openModal(p) {
+  const precoBase = p.precoMax || p.precoMin || 0;
+  const simuladorHtml = p.precoMin ? `
+    <div class="sim-box">
+      <p class="sim-label">Simular entrada + parcelamento</p>
+      <div class="sim-entrada-row">
+        <div class="sim-input-wrap">
+          <span>R$</span>
+          <input type="text" inputmode="decimal" id="simEntrada" placeholder="0,00">
+        </div>
+        <button type="button" class="btn btn-cta btn-small sim-calc-btn" id="simCalcBtn">Calcular</button>
+      </div>
+      <div class="sim-saldo-row">
+        <span>Saldo a parcelar</span>
+        <strong id="simSaldo">${money2(precoBase)}</strong>
+      </div>
+      <p class="sim-parcelas-label">Parcelas</p>
+      <div class="sim-parcelas" id="simParcelas"></div>
+      <p class="sim-disclaimer">Simulação estimada, sem valor contratual. Condições reais confirmadas com o consultor.</p>
+    </div>
+  ` : '';
+
   modalBody.innerHTML = `
     <div class="modal-media">${productMedia(p)}</div>
     <p class="modal-brand">${p.marca || p.categoria}</p>
@@ -150,12 +225,21 @@ function openModal(p) {
       ${p.cor ? `<span>Cor: ${p.cor}</span>` : ''}
     </div>
     <p class="modal-price ${p.precoMin ? '' : 'is-unset'}">${priceLabel(p)}</p>
+    ${simuladorHtml}
     <a href="${waLink(p)}" target="_blank" rel="noopener" class="btn btn-cta modal-cta">
       ${iconSvg('bolt')} Perguntar no WhatsApp
     </a>
   `;
   modal.hidden = false;
   document.body.style.overflow = 'hidden';
+
+  if (p.precoMin) {
+    renderParcelas(precoBase);
+    document.getElementById('simCalcBtn').addEventListener('click', () => updateSimulator(precoBase));
+    document.getElementById('simEntrada').addEventListener('keydown', e => {
+      if (e.key === 'Enter') updateSimulator(precoBase);
+    });
+  }
 }
 function closeModal() {
   modal.hidden = true;

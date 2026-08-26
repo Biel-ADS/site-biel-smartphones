@@ -331,6 +331,48 @@ svg { width: 1em; height: 1em; }
 .modal-price.is-unset { font-size: 15px; color: var(--text-dim); }
 .modal-cta { margin-top: 24px; width: 100%; justify-content: center; }
 
+/* ===== Simulador de entrada + parcelamento ===== */
+.sim-box {
+  margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border);
+}
+.sim-label {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-faint); margin-bottom: 10px;
+}
+.sim-entrada-row { display: flex; gap: 10px; align-items: stretch; }
+.sim-input-wrap {
+  flex: 1; display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 14px; transition: border-color .3s;
+}
+.sim-input-wrap:focus-within { border-color: var(--accent); }
+.sim-input-wrap span { font-size: 13px; font-weight: 700; color: var(--text-faint); }
+.sim-input-wrap input {
+  flex: 1; background: none; border: none; outline: none; color: var(--text);
+  font-family: var(--font-display); font-size: 16px; font-weight: 700; padding: 12px 0;
+}
+.sim-input-wrap input::placeholder { color: var(--text-faint); font-weight: 500; }
+.sim-calc-btn { flex-shrink: 0; padding: 12px 18px; }
+.sim-saldo-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+  font-size: 13.5px; color: var(--text-dim); font-weight: 600;
+}
+.sim-saldo-row strong { font-family: var(--font-display); font-size: 16px; color: var(--text); }
+.sim-parcelas-label {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-faint); margin-top: 18px; margin-bottom: 10px;
+}
+.sim-parcelas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sim-parcela-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 3px;
+}
+.sim-parcela-card strong { font-size: 13.5px; font-weight: 700; color: var(--text); }
+.sim-parcela-card span { font-size: 11px; color: var(--text-faint); font-weight: 600; }
+.sim-paid { grid-column: 1 / -1; font-size: 13.5px; color: var(--success); font-weight: 600; padding: 8px 0; }
+.sim-disclaimer { font-size: 10.5px; color: var(--text-faint); margin-top: 14px; line-height: 1.5; }
+
 /* ===== Reveal animation base state ===== */
 [data-reveal] { opacity: 0; }
 
