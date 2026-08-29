@@ -344,6 +344,7 @@ svg { width: 1em; height: 1em; }
   font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
   color: var(--text-faint); margin-bottom: 10px;
 }
+.sim-valor-wrap { margin-bottom: 10px; }
 .sim-entrada-row { display: flex; gap: 10px; align-items: stretch; }
 .sim-input-wrap {
   flex: 1; display: flex; align-items: center; gap: 8px;
@@ -376,6 +377,7 @@ svg { width: 1em; height: 1em; }
 .sim-parcela-card strong { font-size: 13.5px; font-weight: 700; color: var(--text); }
 .sim-parcela-card span { font-size: 11px; color: var(--text-faint); font-weight: 600; }
 .sim-paid { grid-column: 1 / -1; font-size: 13.5px; color: var(--success); font-weight: 600; padding: 8px 0; }
+.sim-paid.sim-pending { color: var(--text-faint); font-weight: 500; }
 .sim-disclaimer { font-size: 10.5px; color: var(--text-faint); margin-top: 14px; line-height: 1.5; }
 
 /* ===== Reveal animation base state ===== */

@@ -165,6 +165,24 @@ function installmentPlan(saldo) {
   return list;
 }
 
+function debounce(fn, wait) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), wait);
+  };
+}
+
+function maskCurrencyInput(el) {
+  el.addEventListener('input', () => {
+    let digits = el.value.replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+    if (!digits) { el.value = ''; return; }
+    const cents = digits.padStart(3, '0');
+    const intPart = cents.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    el.value = `${intPart},${cents.slice(-2)}`;
+  });
+}
+
 function renderParcelas(saldo) {
   const parcelasEl = document.getElementById('simParcelas');
   if (!parcelasEl) return;
@@ -181,10 +199,21 @@ function renderParcelas(saldo) {
   `).join('');
 }
 
-function updateSimulator(precoBase) {
+function renderSimPending(msg) {
+  const parcelasEl = document.getElementById('simParcelas');
+  if (parcelasEl) parcelasEl.innerHTML = `<p class="sim-paid sim-pending">${msg}</p>`;
+}
+
+function updateSimulator(getPrecoBase) {
   const entradaInput = document.getElementById('simEntrada');
   const saldoEl = document.getElementById('simSaldo');
   if (!entradaInput || !saldoEl) return;
+  const precoBase = getPrecoBase();
+  if (!precoBase || precoBase <= 0) {
+    saldoEl.textContent = '—';
+    renderSimPending('Informe o valor do produto para simular.');
+    return;
+  }
   const entrada = Math.min(parseBRL(entradaInput.value), precoBase);
   const saldo = Math.max(0, precoBase - entrada);
   saldoEl.textContent = money2(saldo);
@@ -195,26 +224,32 @@ function updateSimulator(precoBase) {
 const modal = document.getElementById('productModal');
 const modalBody = document.getElementById('modalBody');
 function openModal(p) {
+  const hasPrice = !!p.precoMin;
   const precoBase = p.precoMax || p.precoMin || 0;
-  const simuladorHtml = p.precoMin ? `
+  const simuladorHtml = `
     <div class="sim-box">
       <p class="sim-label">Simular entrada + parcelamento</p>
+      ${hasPrice ? '' : `
+      <div class="sim-input-wrap sim-valor-wrap">
+        <span>R$</span>
+        <input type="text" inputmode="decimal" id="simValor" placeholder="Valor do produto">
+      </div>`}
       <div class="sim-entrada-row">
         <div class="sim-input-wrap">
           <span>R$</span>
-          <input type="text" inputmode="decimal" id="simEntrada" placeholder="0,00">
+          <input type="text" inputmode="decimal" id="simEntrada" placeholder="Entrada (opcional)">
         </div>
         <button type="button" class="btn btn-cta btn-small sim-calc-btn" id="simCalcBtn">Calcular</button>
       </div>
       <div class="sim-saldo-row">
         <span>Saldo a parcelar</span>
-        <strong id="simSaldo">${money2(precoBase)}</strong>
+        <strong id="simSaldo">${hasPrice ? money2(precoBase) : '—'}</strong>
       </div>
       <p class="sim-parcelas-label">Parcelas</p>
       <div class="sim-parcelas" id="simParcelas"></div>
       <p class="sim-disclaimer">Simulação estimada, sem valor contratual. Condições reais confirmadas com o consultor.</p>
     </div>
-  ` : '';
+  `;
 
   modalBody.innerHTML = `
     <div class="modal-media">${productMedia(p)}</div>
@@ -233,12 +268,24 @@ function openModal(p) {
   modal.hidden = false;
   document.body.style.overflow = 'hidden';
 
-  if (p.precoMin) {
+  const entradaInput = document.getElementById('simEntrada');
+  const valorInput = document.getElementById('simValor');
+  const getBase = () => hasPrice ? precoBase : parseBRL(valorInput ? valorInput.value : '');
+  const runSim = () => updateSimulator(getBase);
+  const runSimDebounced = debounce(runSim, 250);
+
+  maskCurrencyInput(entradaInput);
+  entradaInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSim(); });
+  entradaInput.addEventListener('input', runSimDebounced);
+  document.getElementById('simCalcBtn').addEventListener('click', runSim);
+
+  if (hasPrice) {
     renderParcelas(precoBase);
-    document.getElementById('simCalcBtn').addEventListener('click', () => updateSimulator(precoBase));
-    document.getElementById('simEntrada').addEventListener('keydown', e => {
-      if (e.key === 'Enter') updateSimulator(precoBase);
-    });
+  } else {
+    maskCurrencyInput(valorInput);
+    valorInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSim(); });
+    valorInput.addEventListener('input', runSimDebounced);
+    renderSimPending('Informe o valor do produto para simular.');
   }
 }
 function closeModal() {
